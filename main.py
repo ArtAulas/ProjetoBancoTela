@@ -5,32 +5,32 @@ Não é necessário ter a funcionalidade em um primeiro momento
 '''
 
 l=[
-            {
-                'nome':'Arthur',
-                'ra':'2302331',
-                'curso':'SI'
-            },
-            {
-                'nome':'Bárbara',
-                'ra':'1873810',
-                'curso':'ADS'
-            },
-            {
-                'nome':'Camily',
-                'ra':'1562037',
-                'curso':'GTI'
-            },
-            {
-                'nome':'Roberto',
-                'ra':'1389021',
-                'curso':'SI'
-            },
-            {
-                'nome':'José',
-                'ra':'2204781',
-                'curso':'ADS'
-            }
-        ]
+    {
+        'nome':'Arthur',
+        'ra':'2302331',
+        'curso':'SI'
+    },
+    {
+        'nome':'Bárbara',
+        'ra':'1873810',
+        'curso':'ADS'
+    },
+    {
+        'nome':'Camily',
+        'ra':'1562037',
+        'curso':'GTI'
+    },
+    {
+        'nome':'Roberto',
+        'ra':'1389021',
+        'curso':'SI'
+    },
+    {
+        'nome':'José',
+        'ra':'2204781',
+        'curso':'ADS'
+    }
+]
 
 import tkinter as tk
 from tkinter import ttk
@@ -89,23 +89,28 @@ class InfoDisplay(ttk.Frame):
         print('TODO')
 
     def deletar(self):
-        new=NameDisplay(self.nome)
+        new=NameDisplay()
         new.mainloop()
         print('TODO')
 
 class NameDisplay(tk.Tk):
-    def __init__(self,nome):
+    def __init__(self):
         super().__init__()
-        self.title('Nome')
+        self.title('Confirmação')
 
-        self.label=ttk.Label(self,text=nome)
-        self.label.grid(row=0,column=0)
+        self.label=ttk.Label(self,text='Confirmar Deleção')
+        self.label.grid(row=0,column=0, columnspan=2)
 
-        self.btn=tk.Button(self,text='Continuar',command=lambda:print(nome))
+        self.btn=tk.Button(self,text='Confirmar',command=self.confirm)
         self.btn.grid(row=1,column=0)
 
-        self.btn=tk.Button(self,text='Fechar',command=self.destroy)
-        self.btn.grid(row=1,column=1)
+        self.btn_canc=tk.Button(self,text='Cancelar',command=self.destroy)
+        self.btn_canc.grid(row=1,column=1)
+    
+    def confirm(self):
+        print('Confirmou deleção')
+        self.destroy()
+
 
 if __name__=='__main__':
     main()
