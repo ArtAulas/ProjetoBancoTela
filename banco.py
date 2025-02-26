@@ -6,24 +6,22 @@ engine=create_engine('sqlite:///testeDB.db')
 def get_all():
     with engine.connect() as con:
       q=text('''select * from User''')
-      b=con.execute(q).all()
+      retorno=con.execute(q).all()
       l=[]
-      for registro in b:
+      for registro in retorno:
           a={'id':registro[0],'nome':registro[1],'ra':registro[2],'curso':registro[3]}
           l.append(a)
     return l
 
+def insert(dici):
+   #dici={'nome':"Nome_Pessoa",'ra':1234567,'curso':"Curso_Pessoa"}
+   with engine.connect() as con:
+      query=text('''insert into User(nome,ra,curso) values(:nomeQ,:raQ,:cursoQ)''')
+      rs=con.execute(query,{'nomeQ':dici['nome'],'raQ':dici['ra'],'cursoQ':dici['curso']})
+      con.commit()
 
-'''
-create table User(
-  id integer primary key autoincrement,
-  nome text,
-  ra integer unique,
-  curso text
-)
-'''
-
-'''
-insert into User(nome,ra,curso)
-values('Arthur',2302331,'SI'),('Bárbara',1873810,'ADS'),('Camily',1562037,'GTI'),('Roberto',1389021,'SI'),('José',2204781,'ADS')
-'''
+def delete(id):
+   with engine.connect() as con:
+      q=text('delete from User where id='+str(id))
+      con.execute(q)
+      con.commit()
