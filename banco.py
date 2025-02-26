@@ -3,14 +3,16 @@ from sqlalchemy.sql import text
 
 engine=create_engine('sqlite:///testeDB.db')
 
-l=[]
+def get_all():
+    with engine.connect() as con:
+      q=text('''select * from User''')
+      b=con.execute(q).all()
+      l=[]
+      for registro in b:
+          a={'id':registro[0],'nome':registro[1],'ra':registro[2],'curso':registro[3]}
+          l.append(a)
+    return l
 
-with engine.connect() as con:
-    a=text('''select * from User''')
-    b=con.execute(a).all()
-    # for registro in b:
-    #     a={'id':registro[0],'nome':registro[1]}
-    #     l.append(a)
 
 '''
 create table User(
